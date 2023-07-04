@@ -1,85 +1,86 @@
-# ES6 Data Manipulation
+# ES6 Promises
 
-This project contains tasks for learning to manipulate data in ECMAScript 2015 (ES6).
+This project contains tasks for learning to use Promises in ECMAScript 2015 (ES6).
 
 ## Tasks To Complete
 
-+ [x] 0. **Basic list of objects**<br/>[0-get_list_students.js](0-get_list_students.js) contains a script that exports a function named `getListStudents` with the following requirements:
-  + Returns an array of objects.
-  + Each object should have three attributes: `id` (Number), `firstName` (String), and `location` (String).
-  + The array contains the following students in the order they're listed:
-    + `Guillaume`, id: `1`, in `San Francisco`.
-    + `James`, id: `2`, in `Columbia`.
-    + `Serena`, id: `5`, in `San Francisco`.
++ [x] 0. **Keep every promise you make and only make promises you can keep**<br/>[0-promise.js](0-promise.js) contains a script that exports a function with the prototype `function getResponseFromAPI()`, which returns a Promise.
 
-+ [x] 1. **More mapping**<br/>[1-get_list_student_ids.js](1-get_list_student_ids.js) contains a script that exports a function named `getListStudentIds` with the following requirements:
-  + Returns an array of ids from a list of object.
-  + This function is taking one argument which is an array of objects - and this array is in the same format as the return value of `getListStudents` from the previous task.
-  + If the argument is not an array, the function returns an empty array.
-  + You must use the map function on the array.
++ [x] 1. **Don't make a promise...if you know you can't keep it**<br/>[1-promise.js](1-promise.js) contains a script that exports a function with the prototype `getFullResponseFromAPI(success)`, which returns a Promise. The parameter (`success`) is a `boolean`.
+  + When the argument is:
+    + `true`
+      + Resolve the promise by passing an object with 2 attributes:
+        + `status`: `200`
+        + `body`: `'Success'`
+    + `false`
+      + Reject the promise with an error object with the message `The fake API is not working currently`.
 
-+ [x] 2. **Filter**<br/>[2-get_students_by_loc.js](2-get_students_by_loc.js) contains a script that exports a function named `getStudentsByLocation` with the following requirements:
-  + Returns an array of objects who are located in a specific city.
-  + It should accept a list of students (from `getListStudents`) and a `city` (string) as parameters.
-  + You must use the `filter` function on the array.
++ [x] 2. **Catch me if you can!**<br/>[2-then.js](2-then.js) contains a script that exports a function with the prototype `function handleResponseFromAPI(promise)`, which appends three handlers to the `promise` argument.
+  + When the Promise resolves, return an object with the following attributes:
+    + `status`: `200`,
+    + `body`: `'success'`
+  + When the Promise rejects, return an empty `Error` object.
+  + For every resolution, log `Got a response from the API` to the console.
 
-+ [x] 3. **Reduce**<br/>[3-get_ids_sum.js](3-get_ids_sum.js) contains a script that exports a function named `getStudentIdsSum` with the following requirements:
-  + Returns the sum of all the student ids.
-  + It should accept a list of students (from `getListStudents`) as a parameter.
-  + You must use the `reduce` function on the array.
++ [x] 3. **Handle multiple successful promises**<br/>[3-all.js](3-all.js) contains a script that meets the following requirements.
+  + Import `uploadPhoto` and `createUser` from [utils.js](utils.js).
+  + Use the prototype below to collectively resolve all promises and log `body firstName lastName` to the console. The functions in [utils.js](utils.js) return Promises.
+    ```js
+    function handleProfileSignup()
+    ```
+  + In the event of an error, log `Signup system offline` to the console.
 
-+ [x] 4. **Combine**<br/>[4-update_grade_by_city.js](4-update_grade_by_city.js) contains a script that exports a function named `updateStudentGradeByCity` with the following requirements:
-  + Returns an array of students for a specific city with their new grade.
-  + It should accept a list of students (from `getListStudents`), a `city` (String), and `newGrades` (Array of “grade” objects) as parameters.
-  + `newGrades` is an array of objects with this format:
++ [x] 4. **Simple promise**<br/>[4-user-promise.js](4-user-promise.js) contains a script that exports a function with the prototype `function signUpUser(firstName, lastName)`, which returns a resolved promise with the object shown below.
+  ```js
+  {
+    firstName: value,
+    lastName: value,
+  }
+  ```
+
++ [x] 5. **Reject the promises**<br/>[5-photo-reject.js](5-photo-reject.js) contains a script that exports a function with the prototype `function uploadPhoto(filename)`, which returns a Promise rejecting with an Error and the string `$fileName cannot be processed`, where `fileName` is a string.
+
++ [x] 6. **Handle multiple promises**<br/>[6-final-user.js](6-final-user.js) contains a script that meets the following requirements.
+  + Import `signUpUser` from [4-user-promise.js](4-user-promise.js) and `uploadPhoto` from [5-photo-reject.js](5-photo-reject.js).
+  + Export a function named `handleProfileSignup` that accepts three arguments `firstName` (string), `lastName` (string), and `fileName` (string) and calls the two other functions (`signUpUser` and `uploadPhoto`).
+  + When the promises are all settled it should return an array with the following structure:
+    ```js
+    [
+      {
+        status: status_of_the_promise,
+        value: value || reason // value or error returned by the Promise
+      },
+      ...
+    ]
+    ```
+
++ [x] 7. **Load balancer**<br/>[7-load_balancer.js](7-load_balancer.js) contains a script that exports a function with the prototype `function loadBalancer(chinaDownload, USDownload)`, which returns the value returned by the promise that resolved the first, where `chinaDownload` and `USDownload` are Promises.
+
++ [x] 8. **Throw error / try catch**<br/>[8-try.js](8-try.js) contains a script that meets the following requirements.
+  + Exports a function with the prototype `function divideFunction(numerator, denominator)`, where `numerator` and `denominator` are numbers.
+  + When the `denominator` argument is equal to 0, the function should throw a new error with the message `cannot divide by 0`.
+  + Otherwise it should return the `numerator` divided by the `denominator`.
+
++ [x] 9. **Throw an error**<br/>[9-try.js](9-try.js) contains a script that meets the following requirements.
+  + Export a function named `guardrail` that accepts a function argument called `mathFunction`.
+  + The `guardrail` function should create and return an array named `queue`.
+  + When the `mathFunction` function is executed, the value returned by the function should be appended to the `queue`. If this function throws an error, the error message should be appended to the `queue`.
+  + In every case, the message `Guardrail was processed` should be added to the queue.
+
++ [x] 10. **Await / Async**<br/>[100-await.js](100-await.js) contains a script that meets the following requirements.
+  + Import `uploadPhoto` and `createUser` from [utils.js](utils.js).
+  + Export an async function named `asyncUploadUser` that will call the two functions imported above and return an object with the following format:
     ```js
     {
-      studentId: Number,
-      grade: Number,
+      photo: response_from_uploadPhoto_function,
+      user: response_from_createUser_function,
     }
     ```
-
-+ [x] 5. **Typed Arrays**<br/>[5-typed_arrays.js](5-typed_arrays.js) contains a script that exports a function named `createInt8TypedArray` with the following requirements:
-  + Returns a new `ArrayBuffer` with an `Int8` value at a specific position.
-  + It should accept three arguments: `length` (Number), `position` (Number), and `value` (Number).
-  + If adding the value is not possible the error `Position outside range` should be thrown.
-
-+ [x] 6. **Set data structure**<br/>[6-set.js](6-set.js) contains a script that exports a function named `setFromArray` with the following requirements:
-  + Returns a `Set` from an array.
-  + It accepts an argument (Array, of any kind of element).
-
-+ [x] 7. **More set data structure**<br/>[7-has_array_values.js](7-has_array_values.js) contains a script that exports a function named `hasValuesFromArray` with the following requirements:
-  + Returns a boolean if all the elements in the array exist within the set.
-  + It accepts two arguments: a `set` (Set) and an `array` (Array).
-
-+ [x] 8. **Clean set**<br/>[8-clean_set.js](8-clean_set.js) contains a script that exports a function named `cleanSet` with the following requirements:
-  + Returns a string of all the set values that start with a specific string (`startString`).
-  + It accepts two arguments: a `set` (Set) and a `startString` (String).
-  + When a value starts with `startString` you only append the rest of the string. The string contains all the values of the set separated by `-`.
-
-+ [x] 9. **Map data structure**<br/>[9-groceries_list.js](9-groceries_list.js) contains a script that exports a function named `groceriesList` with the following requirements:
-  + Returns a map of groceries with the following items (name, quantity):
-    ```cs
-    "Apples", 10
-    "Tomatoes", 10
-    "Pasta", 1
-    "Rice", 1
-    "Banana", 5
-    ```
-
-+ [x] 10. **More map data structure**<br/>[10-update_uniq_items.js](10-update_uniq_items.js) contains a script that exports a function named `updateUniqueItems` with the following requirements:
-  + Returns an updated map for all items with initial quantity at 1.
-  + It should accept a map as an argument. The map it accepts for argument is similar to the map you create in the previous task.
-  + For each entry of the map where the quantity is 1, update the quantity to 100. If updating the quantity is not possible (argument is not a map) the error `Cannot process` should be thrown.
-
-+ [x] 11. **Weak link data structure**<br/>[100-weak.js](100-weak.js) contains a script that meets the following requirements:
-  + Export a `const` instance of `WeakMap` and name it `weakMap`.
-  + Export a new function named `queryAPI`. It should accept an endpoint argument like so:
+  + Import `uploadPhoto` and `createUser` from [utils.js](utils.js).
+  + If one of the async function fails, return an empty object as shown below:
     ```js
     {
-      protocol: 'http',
-      name: 'getUsers',
+      photo: null,
+      user: null,
     }
     ```
-  + Track within the `weakMap` the number of times `queryAPI` is called for each endpoint.
-  + When the number of queries is >= 5 throw an error with the message `Endpoint load is high`.
